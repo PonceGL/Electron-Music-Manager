@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import { initAutoUpdater } from './updater'
+import { buildMenu } from './menu'
 
 function createWindow(): void {
   const win = new BrowserWindow({
@@ -36,6 +37,7 @@ ipcMain.handle('get-app-info', () => ({
 }))
 
 app.whenReady().then(() => {
+  buildMenu()
   createWindow()
   if (app.isPackaged) initAutoUpdater()
 
