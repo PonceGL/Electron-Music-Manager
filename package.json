@@ -2,13 +2,15 @@
   "name": "music-manager",
   "version": "1.0.0",
   "description": "A music manager desktop app built with Electron",
-  "main": "src/main.js",
+  "main": "out/main/index.js",
   "author": "PonceGL",
   "license": "ISC",
   "scripts": {
-    "start": "electron .",
-    "build": "electron-builder",
-    "dist": "electron-builder --publish=never"
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "package": "electron-vite build && electron-builder",
+    "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json"
   },
   "build": {
     "appId": "com.poncegl.music-manager",
@@ -16,6 +18,9 @@
     "directories": {
       "output": "dist"
     },
+    "files": [
+      "out/**/*"
+    ],
     "mac": {
       "category": "public.app-category.music"
     },
@@ -26,9 +31,31 @@
       "target": "AppImage"
     }
   },
-  "keywords": ["electron", "music", "manager"],
+  "keywords": [
+    "electron",
+    "music",
+    "manager"
+  ],
   "devDependencies": {
+    "@types/node": "^25.9.1",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
     "electron": "^41.7.1",
-    "electron-builder": "^26.8.1"
+    "electron-builder": "^26.8.1",
+    "electron-vite": "^5.0.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.14"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "electron-winstaller",
+      "esbuild"
+    ]
+  },
+  "dependencies": {
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
   }
 }
