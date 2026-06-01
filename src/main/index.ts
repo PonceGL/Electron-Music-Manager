@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell } from 'electron'
+import { app, BrowserWindow, shell, nativeTheme } from 'electron'
 import { join } from 'path'
 import { initAutoUpdater } from './updater'
 import { buildMenu } from './menu'
@@ -36,6 +36,7 @@ function createWindow(): void {
 }
 
 app.whenReady().then(() => {
+  nativeTheme.themeSource = 'dark'
   buildMenu()
   createWindow()
   if (app.isPackaged) initAutoUpdater()
