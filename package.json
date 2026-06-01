@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A music manager desktop app built with Electron",
   "main": "src/main.js",
-  "author": "PonceGL <poncianogl@hotmail.com>",
+  "author": "PonceGL",
   "license": "ISC",
   "scripts": {
     "start": "electron .",
