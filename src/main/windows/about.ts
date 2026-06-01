@@ -28,6 +28,7 @@ export function openAboutWindow(): void {
     }
   })
 
+  aboutWindow.setMenu(null)
   aboutWindow.on('ready-to-show', () => aboutWindow?.show())
 
   const query = {
