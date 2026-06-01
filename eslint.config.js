@@ -48,6 +48,24 @@ export default tseslint.config(
     }
   },
 
+  // Test files — add Vitest globals
+  {
+    files: ['src/**/*.{test,spec}.{ts,tsx}', 'src/**/test/**/*.{ts,tsx}'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        vi: 'readonly'
+      }
+    }
+  },
+
   // Disable ESLint rules that conflict with Prettier (always last)
   prettierConfig
 )
