@@ -19,6 +19,14 @@
         color: #eee;
         height: 100vh;
         display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        -webkit-app-region: drag;
+      }
+
+      .about-wrapper {
+        flex: 1;
+        display: flex;
         align-items: center;
         justify-content: center;
       }
@@ -52,10 +60,12 @@
     </style>
   </head>
   <body>
-    <div class="about">
-      <h1 id="app-name">Music Manager</h1>
-      <p class="version" id="app-version"></p>
-      <p class="description" id="app-description"></p>
+    <div class="about-wrapper">
+      <div class="about">
+        <h1 id="app-name">Music Manager</h1>
+        <p class="version" id="app-version"></p>
+        <p class="description" id="app-description"></p>
+      </div>
     </div>
     <script>
       const params = new URLSearchParams(window.location.search)

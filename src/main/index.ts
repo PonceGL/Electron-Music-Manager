@@ -2,10 +2,9 @@ import { app, BrowserWindow, shell } from 'electron'
 import { join } from 'path'
 import { initAutoUpdater } from './updater'
 import { buildMenu } from './menu'
+import { getTitleBarOptions } from './windows/titleBar'
 
 function createWindow(): void {
-  const isMac = process.platform === 'darwin'
-
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -13,10 +12,7 @@ function createWindow(): void {
     minHeight: 500,
     show: false,
     backgroundColor: '#1a1a2e',
-    titleBarStyle: isMac ? 'hiddenInset' : 'hidden',
-    titleBarOverlay: isMac
-      ? false
-      : { color: '#1a1a2e', symbolColor: '#eee', height: 32 },
+    ...getTitleBarOptions(),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,

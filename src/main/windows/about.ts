@@ -1,5 +1,6 @@
 import { BrowserWindow, app } from 'electron'
 import { join } from 'path'
+import { getTitleBarOptions } from './titleBar'
 
 const DESCRIPTION = 'A music manager desktop app built with Electron'
 
@@ -21,6 +22,7 @@ export function openAboutWindow(): void {
     show: false,
     backgroundColor: '#1a1a2e',
     title: `About ${app.getName()}`,
+    ...getTitleBarOptions(),
     webPreferences: {
       sandbox: true,
       contextIsolation: true,
