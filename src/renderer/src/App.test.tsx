@@ -14,7 +14,7 @@ describe('App', () => {
 
   it('shows the drag region on macOS', () => {
     // window.electronAPI.platform is mocked to 'darwin' in test/setup.ts
-    const { container } = render(<App />)
-    expect(container.querySelector('.drag-region')).toBeInTheDocument()
+    render(<App />)
+    expect(screen.getByTestId('drag-region')).toBeInTheDocument()
   })
 })
