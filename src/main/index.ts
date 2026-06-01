@@ -4,12 +4,19 @@ import { initAutoUpdater } from './updater'
 import { buildMenu } from './menu'
 
 function createWindow(): void {
+  const isMac = process.platform === 'darwin'
+
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
     minWidth: 800,
     minHeight: 500,
     show: false,
+    backgroundColor: '#1a1a2e',
+    titleBarStyle: isMac ? 'hiddenInset' : 'hidden',
+    titleBarOverlay: isMac
+      ? false
+      : { color: '#1a1a2e', symbolColor: '#eee', height: 32 },
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
