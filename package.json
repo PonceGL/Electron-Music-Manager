@@ -1,0 +1,34 @@
+{
+  "name": "music-manager",
+  "version": "1.0.0",
+  "description": "A music manager desktop app built with Electron",
+  "main": "src/main.js",
+  "author": "PonceGL <poncianogl@hotmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "dist": "electron-builder --publish=never"
+  },
+  "build": {
+    "appId": "com.poncegl.music-manager",
+    "productName": "Music Manager",
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "category": "public.app-category.music"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  },
+  "keywords": ["electron", "music", "manager"],
+  "devDependencies": {
+    "electron": "^41.7.1",
+    "electron-builder": "^26.8.1"
+  }
+}
