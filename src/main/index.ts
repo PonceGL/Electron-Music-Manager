@@ -2,12 +2,17 @@ import { app, BrowserWindow, shell } from 'electron'
 import { join } from 'path'
 import { initAutoUpdater } from './updater'
 import { buildMenu } from './menu'
+import { getTitleBarOptions } from './windows/titleBar'
 
 function createWindow(): void {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
+    minWidth: 800,
+    minHeight: 500,
     show: false,
+    backgroundColor: '#1a1a2e',
+    ...getTitleBarOptions(),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
