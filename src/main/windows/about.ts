@@ -1,6 +1,8 @@
 import { BrowserWindow, app } from 'electron'
 import { join } from 'path'
 
+const DESCRIPTION = 'A music manager desktop app built with Electron'
+
 let aboutWindow: BrowserWindow | null = null
 
 export function openAboutWindow(): void {
@@ -20,8 +22,7 @@ export function openAboutWindow(): void {
     backgroundColor: '#1a1a2e',
     title: `About ${app.getName()}`,
     webPreferences: {
-      preload: join(__dirname, '../preload/index.js'),
-      sandbox: false,
+      sandbox: true,
       contextIsolation: true,
       nodeIntegration: false
     }
@@ -29,10 +30,18 @@ export function openAboutWindow(): void {
 
   aboutWindow.on('ready-to-show', () => aboutWindow?.show())
 
+  const query = {
+    name: app.getName(),
+    version: app.getVersion(),
+    description: DESCRIPTION
+  }
+
   if (process.env['ELECTRON_RENDERER_URL']) {
-    aboutWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/about.html`)
+    const url = new URL(`${process.env['ELECTRON_RENDERER_URL']}/about.html`)
+    Object.entries(query).forEach(([k, v]) => url.searchParams.set(k, v))
+    aboutWindow.loadURL(url.toString())
   } else {
-    aboutWindow.loadFile(join(__dirname, '../../renderer/about.html'))
+    aboutWindow.loadFile(join(__dirname, '../renderer/about.html'), { query })
   }
 
   aboutWindow.on('closed', () => {
