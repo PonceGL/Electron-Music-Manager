@@ -1,5 +1,7 @@
-import { app, BrowserWindow, shell } from 'electron'
+import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
+import { initAutoUpdater } from './updater'
+import { buildMenu } from './menu'
 
 function createWindow(): void {
   const win = new BrowserWindow({
@@ -28,8 +30,16 @@ function createWindow(): void {
   }
 }
 
+ipcMain.handle('get-app-info', () => ({
+  name: app.getName(),
+  version: app.getVersion(),
+  description: 'A music manager desktop app built with Electron'
+}))
+
 app.whenReady().then(() => {
+  buildMenu()
   createWindow()
+  if (app.isPackaged) initAutoUpdater()
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()

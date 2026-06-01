@@ -1,6 +1,6 @@
 {
   "name": "music-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A music manager desktop app built with Electron",
   "main": "out/main/index.js",
   "author": "PonceGL",
@@ -25,11 +25,31 @@
     "mac": {
       "icon": "resources/icon.icns",
       "category": "public.app-category.music",
-      "target": [{ "target": "dmg", "arch": ["arm64", "x64"] }]
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ]
     },
     "win": {
       "icon": "resources/icon.ico",
-      "target": [{ "target": "nsis", "arch": ["x64"] }]
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "PonceGL",
+      "repo": "Electron-Music-Manager"
     }
   },
   "keywords": [
@@ -56,6 +76,7 @@
     ]
   },
   "dependencies": {
+    "electron-updater": "^6.8.3",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   }

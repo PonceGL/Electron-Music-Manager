@@ -5,8 +5,15 @@ declare module '*.css' {
   export default content
 }
 
+interface AppInfo {
+  name: string
+  version: string
+  description: string
+}
+
 interface Window {
   electronAPI: {
     platform: string
+    getAppInfo: () => Promise<AppInfo>
   }
 }
