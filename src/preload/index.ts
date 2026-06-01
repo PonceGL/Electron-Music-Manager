@@ -1,6 +1,5 @@
-import { contextBridge, ipcRenderer } from 'electron'
+import { contextBridge } from 'electron'
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  platform: process.platform,
-  getAppInfo: () => ipcRenderer.invoke('get-app-info')
+  platform: process.platform
 })
