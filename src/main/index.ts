@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell } from 'electron'
+import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import { initAutoUpdater } from './updater'
 
@@ -28,6 +28,12 @@ function createWindow(): void {
     win.loadFile(join(__dirname, '../renderer/index.html'))
   }
 }
+
+ipcMain.handle('get-app-info', () => ({
+  name: app.getName(),
+  version: app.getVersion(),
+  description: 'A music manager desktop app built with Electron'
+}))
 
 app.whenReady().then(() => {
   createWindow()
