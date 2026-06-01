@@ -16,14 +16,18 @@ export function openAboutWindow(): void {
     minimizable: false,
     maximizable: false,
     fullscreenable: false,
+    show: false,
+    backgroundColor: '#1a1a2e',
     title: `About ${app.getName()}`,
     webPreferences: {
-      preload: join(__dirname, '../../preload/index.js'),
+      preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
       contextIsolation: true,
       nodeIntegration: false
     }
   })
+
+  aboutWindow.on('ready-to-show', () => aboutWindow?.show())
 
   if (process.env['ELECTRON_RENDERER_URL']) {
     aboutWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/about.html`)

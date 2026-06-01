@@ -12,16 +12,14 @@ function About(): React.JSX.Element {
   const [info, setInfo] = useState<AppInfo | null>(null)
 
   useEffect(() => {
-    window.electronAPI.getAppInfo().then(setInfo)
+    window.electronAPI.getAppInfo().then(setInfo).catch(console.error)
   }, [])
-
-  if (!info) return <div className="about" />
 
   return (
     <div className="about">
-      <h1>{info.name}</h1>
-      <p className="version">Version {info.version}</p>
-      <p className="description">{info.description}</p>
+      <h1>{info?.name ?? 'Music Manager'}</h1>
+      {info && <p className="version">Version {info.version}</p>}
+      {info && <p className="description">{info.description}</p>}
     </div>
   )
 }
