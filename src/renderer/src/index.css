@@ -6,6 +6,11 @@
 /* Dark mode activates via .dark class on <html> */
 @custom-variant dark (.dark &);
 
+/* Electron native window drag handle */
+@utility app-drag {
+  -webkit-app-region: drag;
+}
+
 *,
 *::before,
 *::after {
