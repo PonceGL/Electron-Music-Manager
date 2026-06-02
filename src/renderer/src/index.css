@@ -1,24 +1,22 @@
 @import 'tailwindcss';
+@import './styles/primitives.css';
+@import './styles/semantic.css';
+@import './styles/tailwind-theme.css';
 
-@theme {
-  --color-app-bg: #1a1a2e;
-  --color-accent: #e94560;
-  --color-foreground: #eee;
-  --color-muted: #aaa;
-  --color-subtle: #888;
-  --color-secondary: #ccc;
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+/* Dark mode activates via .dark class on <html> */
+@custom-variant dark (.dark &);
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@layer base {
-  body {
-    @apply bg-app-bg font-sans text-foreground overflow-hidden;
-  }
-}
-
-@layer utilities {
-  /* Electron-specific: marks the region as a native window drag handle */
-  .app-drag {
-    -webkit-app-region: drag;
-  }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  overflow: hidden;
 }
