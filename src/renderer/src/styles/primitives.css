@@ -1,0 +1,64 @@
+/* Material Design 3 — Reference Tokens (Primitive Palette)
+   These are the only values to change when the brand palette updates.
+   All semantic and Tailwind tokens derive from these. */
+
+:root {
+  /* Primary palette */
+  --md-ref-palette-primary10: #001944;
+  --md-ref-palette-primary20: #142f60;
+  --md-ref-palette-primary30: #2e4578;
+  --md-ref-palette-primary40: #465d91;
+  --md-ref-palette-primary80: #b0c6ff;
+  --md-ref-palette-primary90: #d9e2ff;
+
+  /* Secondary palette */
+  --md-ref-palette-secondary10: #001e2b;
+  --md-ref-palette-secondary20: #003547;
+  --md-ref-palette-secondary30: #004d66;
+  --md-ref-palette-secondary40: #176684;
+  --md-ref-palette-secondary80: #8dcff1;
+  --md-ref-palette-secondary90: #c0e8ff;
+
+  /* Tertiary palette */
+  --md-ref-palette-tertiary10: #001d35;
+  --md-ref-palette-tertiary20: #003256;
+  --md-ref-palette-tertiary30: #164974;
+  --md-ref-palette-tertiary40: #34618d;
+  --md-ref-palette-tertiary80: #9ecafc;
+  --md-ref-palette-tertiary90: #d0e4ff;
+
+  /* Error palette */
+  --md-ref-palette-error10: #690005;
+  --md-ref-palette-error20: #93000a;
+  --md-ref-palette-error40: #ba1a1a;
+  --md-ref-palette-error80: #ffb4ab;
+  --md-ref-palette-error90: #ffdad6;
+
+  /* Neutral palette — surfaces, backgrounds, text */
+  --md-ref-palette-neutral0: #000000;
+  --md-ref-palette-neutral4: #0c0e13;
+  --md-ref-palette-neutral6: #111318;
+  --md-ref-palette-neutral7: #121318;
+  --md-ref-palette-neutral12: #1a1b20;
+  --md-ref-palette-neutral17: #1e1f25;
+  --md-ref-palette-neutral22: #282a2f;
+  --md-ref-palette-neutral25: #2f3036;
+  --md-ref-palette-neutral30: #33353a;
+  --md-ref-palette-neutral35: #37393e;
+  --md-ref-palette-neutral87: #d9d9e0;
+  --md-ref-palette-neutral90: #e2e2e9;
+  --md-ref-palette-neutral92: #e8e7ef;
+  --md-ref-palette-neutral94: #eeedf4;
+  --md-ref-palette-neutral95: #f3f3fa;
+  --md-ref-palette-neutral96: #f0f0f7;
+  --md-ref-palette-neutral98: #f9f9ff;
+  --md-ref-palette-neutral99: #faf8ff;
+  --md-ref-palette-neutral100: #ffffff;
+
+  /* Neutral Variant palette — outlines, surface variants */
+  --md-ref-palette-neutral-variant30: #41484d;
+  --md-ref-palette-neutral-variant50: #71787e;
+  --md-ref-palette-neutral-variant60: #8b9297;
+  --md-ref-palette-neutral-variant80: #c1c7ce;
+  --md-ref-palette-neutral-variant90: #dde3ea;
+}
