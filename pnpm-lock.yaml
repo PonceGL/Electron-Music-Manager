@@ -4,10 +4,16 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@poncegl/material-design-3': link:../../WEB/Material-Design-3-React/packages/material-design-3
+
 importers:
 
   .:
     dependencies:
+      '@poncegl/material-design-3':
+        specifier: link:../../WEB/Material-Design-3-React/packages/material-design-3
+        version: link:../../WEB/Material-Design-3-React/packages/material-design-3
       electron-updater:
         specifier: ^6.8.3
         version: 6.8.3
