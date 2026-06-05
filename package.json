@@ -102,7 +102,7 @@
     ]
   },
   "dependencies": {
-    "@poncegl/material-design-3": "link:../../WEB/Material-Design-3-React/packages/material-design-3",
+    "@poncegl/material-design-3": "0.1.0-alpha.1",
     "electron-updater": "^6.8.3",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"

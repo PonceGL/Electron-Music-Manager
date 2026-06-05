@@ -12,8 +12,8 @@ importers:
   .:
     dependencies:
       '@poncegl/material-design-3':
-        specifier: link:../../WEB/Material-Design-3-React/packages/material-design-3
-        version: link:../../WEB/Material-Design-3-React/packages/material-design-3
+        specifier: 0.1.0-alpha.1
+        version: 0.1.0-alpha.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       electron-updater:
         specifier: ^6.8.3
         version: 6.8.3
@@ -647,6 +647,12 @@ packages:
 
   '@oxc-project/types@0.132.0':
     resolution: {integrity: sha512-FESMOxil5Se014ui/Eq8fT5uHJo6nIRwH0PfJrZJXs6Gek3ZVFOrpUv3YIZT20m+extU98Hg1Ym72U58rlsxUQ==}
+
+  '@poncegl/material-design-3@0.1.0-alpha.1':
+    resolution: {integrity: sha512-GAEWgu9F46ywHqp0MgD2U1KaPr4bpMt7dIb9U1LEgZW4A1ZkgRkTW/uyZBq/k0fKM4vkdK+fhwnl2rjmaM5JNA==}
+    peerDependencies:
+      react: '>=18.2.0'
+      react-dom: '>=18.2.0'
 
   '@rolldown/binding-android-arm64@1.0.2':
     resolution: {integrity: sha512-ZS4D1JPGn/MYQN/SYDWftIE/nVsM8j/AFOYEzAoOE2O3NktQOZru+/vYXGbR/qtdLdIfGCP0lcoJiYVzsEz+iQ==}
@@ -3839,6 +3845,11 @@ snapshots:
     optional: true
 
   '@oxc-project/types@0.132.0': {}
+
+  '@poncegl/material-design-3@0.1.0-alpha.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+    dependencies:
+      react: 19.2.6
+      react-dom: 19.2.6(react@19.2.6)
 
   '@rolldown/binding-android-arm64@1.0.2':
     optional: true
