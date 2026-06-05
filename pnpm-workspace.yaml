@@ -2,5 +2,3 @@ allowBuilds:
   electron: true
   electron-winstaller: true
   esbuild: true
-overrides:
-  '@poncegl/material-design-3': link:../../WEB/Material-Design-3-React/packages/material-design-3
