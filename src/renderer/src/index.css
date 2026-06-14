@@ -2,6 +2,7 @@
 @import './styles/primitives.css';
 @import './styles/semantic.css';
 @import './styles/tailwind-theme.css';
+/* @import '@poncegl/material-design-3/styles.css' */
 
 /* Dark mode activates via .dark class on <html> */
 @custom-variant dark (.dark &);
