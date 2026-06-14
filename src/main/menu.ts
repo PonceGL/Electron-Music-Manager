@@ -1,5 +1,5 @@
 import { app, Menu, MenuItemConstructorOptions } from 'electron'
-import { openAboutWindow } from './windows/about'
+import { openAboutWindow } from './windows/about/createAboutWindow'
 
 export function buildMenu(): void {
   const isMac = process.platform === 'darwin'
