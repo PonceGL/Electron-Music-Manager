@@ -1,5 +1,9 @@
 import { contextBridge } from 'electron'
 
-contextBridge.exposeInMainWorld('electronAPI', {
+const api = {
   platform: process.platform
-})
+}
+
+export type ElectronAPI = typeof api
+
+contextBridge.exposeInMainWorld('electronAPI', api)
