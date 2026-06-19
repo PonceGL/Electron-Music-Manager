@@ -2,3 +2,10 @@ allowBuilds:
   electron: true
   electron-winstaller: true
   esbuild: true
+
+overrides:
+  form-data@4: ^4.0.6
+  js-yaml@4: ^4.1.2
+  tar@7: ^7.5.16
+  undici@6: ^6.27.0
+  undici@7: ^7.28.0
