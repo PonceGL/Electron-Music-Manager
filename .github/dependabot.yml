@@ -1,0 +1,27 @@
+version: 2
+
+updates:
+  - package-ecosystem: "npm" # pnpm projects use the npm ecosystem in Dependabot
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      # Runtime dependencies, batched into a single PR per update cycle.
+      production-dependencies:
+        dependency-type: "production"
+      # Dev tooling, batched separately from runtime dependencies.
+      development-dependencies:
+        dependency-type: "development"
+        exclude-patterns:
+          - "electron"
+          - "electron-builder"
+    # electron and electron-builder are excluded from the development group
+    # on purpose: they drive the native runtime and the packaging pipeline,
+    # so each gets its own isolated PR and must go through the manual smoke
+    # test documented in docs/updating-electron.md before merging — never
+    # batched or auto-merged with unrelated dev-tooling bumps.
