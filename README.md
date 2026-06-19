@@ -64,3 +64,11 @@ pnpm package:win -- --publish=always
 ```
 
 This requires a `GH_TOKEN` environment variable with write access to the repository.
+
+## Dependency updates
+
+Dependabot opens weekly PRs grouped by production vs. development
+dependencies (see [`.github/dependabot.yml`](.github/dependabot.yml)).
+`electron` and `electron-builder` are excluded from grouping and require
+manual smoke testing before merging — see
+[`docs/updating-electron.md`](docs/updating-electron.md).
