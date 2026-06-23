@@ -1,5 +1,7 @@
 # Music Manager
 
+[![CI](https://github.com/PonceGL/Electron-Music-Manager/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/PonceGL/Electron-Music-Manager/actions/workflows/ci.yml)
+
 A music manager desktop app built with Electron, React, and TypeScript.
 
 ## Requirements
@@ -64,6 +66,18 @@ pnpm package:win -- --publish=always
 ```
 
 This requires a `GH_TOKEN` environment variable with write access to the repository.
+
+## Continuous Integration
+
+GitHub Actions runs on every push and pull request to `main`:
+
+- **CI** ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)): `typecheck`, `lint`,
+  `format:check`, `test:run`, plus a build-only check (`electron-vite build`, no
+  packaging) on `macos-latest` and `windows-latest` to catch platform-specific
+  breakages early.
+- **Package** ([`.github/workflows/package.yml`](.github/workflows/package.yml)): full
+  `package:mac` / `package:win` builds, uploaded as workflow artifacts. Not run on
+  every push — trigger it manually (`workflow_dispatch`) or by pushing a `v*.*.*` tag.
 
 ## Dependency updates
 
