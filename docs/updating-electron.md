@@ -22,13 +22,15 @@ not just the build.
    (including platform-specific items), and the "About" window opens with
    styles. Electron version bumps are exactly the kind of change that can
    silently break native menu roles or window chrome.
-5. **Build and smoke-test the installer on both platforms** —
-   `pnpm package:mac` and `pnpm package:win`. The pre-push hook already
-   runs both on every push, so a failing build is caught automatically;
-   what it does **not** catch is whether the packaged app actually opens
-   and runs correctly. Install and launch the produced `.dmg`/`.exe` on at
-   least the platform you're on, and have someone on the other platform do
-   the same before merging.
+5. **Build and smoke-test the installer on both platforms** — run
+   `pnpm package:mac` and `pnpm package:win` yourself (the pre-push hook
+   only runs `pnpm build`, not the full packaging step — see
+   [`.github/workflows/package.yml`](../.github/workflows/package.yml) for
+   the CI equivalent, triggerable manually via `workflow_dispatch`). A
+   green build does **not** mean the packaged app actually opens and runs
+   correctly. Install and launch the produced `.dmg`/`.exe` on at least the
+   platform you're on, and have someone on the other platform do the same
+   before merging.
 6. **Only merge once both platforms have been smoke-tested.** If you can't
    test a platform yourself, ask someone who can, or hold the merge until
    you're able to.
