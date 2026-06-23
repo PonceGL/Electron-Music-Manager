@@ -1,0 +1,52 @@
+name: Package
+
+on:
+  workflow_dispatch: {}
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: Package (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            script: package:mac
+          - os: windows-latest
+            script: package:win
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.0.9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Package
+        run: pnpm ${{ matrix.script }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-${{ matrix.os }}
+          path: |
+            dist/*.dmg
+            dist/*.exe
+            dist/*.blockmap
+          if-no-files-found: error
