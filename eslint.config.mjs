@@ -20,6 +20,21 @@ export default tseslint.config(
       globals: {
         ...globals.node
       }
+    },
+    rules: {
+      // Process boundary: main/preload never reach into the renderer's code.
+      '@typescript-eslint/no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '(^|/)renderer(/|$)',
+              message:
+                'main/preload no pueden importar de src/renderer — el preload solo expone una API, nunca consume código del renderer.'
+            }
+          ]
+        }
+      ]
     }
   },
 
@@ -44,7 +59,38 @@ export default tseslint.config(
     rules: {
       ...reactPlugin.configs.flat.recommended.rules,
       ...reactHooksPlugin.configs.recommended.rules,
-      'react/react-in-jsx-scope': 'off'
+      'react/react-in-jsx-scope': 'off',
+      // Process boundary: the renderer only ever talks to main/preload through
+      // window.electronAPI — it never touches Electron/Node or their source directly.
+      '@typescript-eslint/no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: 'electron',
+              message:
+                'El renderer no puede importar "electron" directamente — usa window.electronAPI expuesto por el preload.'
+            }
+          ],
+          patterns: [
+            {
+              regex: '^node:',
+              message: 'El renderer no puede importar módulos nativos de Node.js.'
+            },
+            {
+              regex: '(^|/)main(/|$)',
+              message:
+                'El renderer no puede importar de src/main — usa window.electronAPI expuesto por el preload.'
+            },
+            {
+              regex: '(^|/)preload(/|$)',
+              message:
+                'El renderer solo puede importar tipos de src/preload (import type) para derivar ElectronAPI — las llamadas en tiempo de ejecución van por window.electronAPI.',
+              allowTypeImports: true
+            }
+          ]
+        }
+      ]
     }
   },
 
