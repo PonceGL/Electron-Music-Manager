@@ -85,6 +85,11 @@ export const IPC_CHANNELS = {
 } as const
 ```
 
+**Convención obligatoria — cero magic strings:** ninguna llamada a `ipcMain.handle`,
+`ipcMain.on`, `ipcRenderer.invoke` o `ipcRenderer.on` debe recibir un string literal como
+nombre de canal. Siempre se referencia `IPC_CHANNELS.<domain>.<name>` (ver §1 principio 3).
+Esto aplica tanto en `src/main/ipc/**` como en `src/preload/api/**`.
+
 ```ts
 // src/shared/ipc/contracts/fs.contract.ts
 import { z } from 'zod'
@@ -117,7 +122,7 @@ the renderer never needs).
 
 `WindowId` (`'main' | 'about' | ...`) is the only vocabulary used to refer to windows —
 see §2.2. `PlatformCapabilities` is a flat object of booleans/feature flags computed once
-at startup describing what the *current OS* supports, exposed to the renderer via preload
+at startup describing what the _current OS_ supports, exposed to the renderer via preload
 — see §2.8.
 
 ---
@@ -241,7 +246,7 @@ src/main/ipc/
 ### 2.5 Services — `services/`
 
 Framework-agnostic business logic. Services never import `ipcMain`, `BrowserWindow`, or
-`Menu` — they're called *by* IPC handlers and *by* menu actions alike, so they can't
+`Menu` — they're called _by_ IPC handlers and _by_ menu actions alike, so they can't
 depend on either.
 
 ```
@@ -345,13 +350,13 @@ export const revealInFolderService: RevealInFolderAdapter = adapter
 
 - Callers (IPC handlers, menu actions) only ever import `<feature>.service.ts` — they
   never branch on `process.platform` themselves.
-- If a feature is **only available on some platforms** and the *renderer* needs to know
+- If a feature is **only available on some platforms** and the _renderer_ needs to know
   (to hide a button, etc.), add a flag to `PlatformCapabilities`
   (`src/shared/constants/capabilities.ts`), computed once at startup from
   `process.platform`, and exposed via preload as `window.electronAPI.platform.capabilities`.
 - If the platform difference is **a single constant value** (e.g. title bar style — see
   the existing `windows/titleBar.ts`), a small inline `process.platform` check is fine.
-  The adapter pattern is for *behavioral* differences with real logic, not for config
+  The adapter pattern is for _behavioral_ differences with real logic, not for config
   values.
 - This pattern lives **inside the feature's own `services/<feature>/` folder** — there is
   no separate top-level `platform/` directory. Everything about a feature, including its
@@ -471,15 +476,15 @@ future mini-player window) — features don't know about windows, windows compos
 This answers "where do things shared across features live": there are **two** shared
 layers, at different scopes. Don't mix them up.
 
-| Content | Location | Used by |
-|---|---|---|
-| IPC channels, contracts, domain models, window ids, capabilities | `src/shared/` (repo root) | `main`, `preload`, `renderer` |
-| Reusable UI components (Button, Modal, Table, Tooltip...) | `src/renderer/src/shared/components/` | any feature/window |
-| Generic UI hooks (`useDebounce`, `useOnClickOutside`, `useElectronEvent`) | `src/renderer/src/shared/hooks/` | any feature/window |
-| Formatters/utilities (`formatDuration`, `formatBytes`, sorters) | `src/renderer/src/shared/lib/` | any feature/window |
-| Renderer-only types shared by 2+ features (view models, not IPC DTOs) | `src/renderer/src/shared/types/` | any feature/window |
-| Design tokens / global styles (existing `primitives.css`, `semantic.css`, `tailwind-theme.css`) | `src/renderer/src/shared/styles/` | any feature/window |
-| UI-only constants (labels, asset paths) | `src/renderer/src/shared/constants/` | any feature/window |
+| Content                                                                                         | Location                              | Used by                       |
+| ----------------------------------------------------------------------------------------------- | ------------------------------------- | ----------------------------- |
+| IPC channels, contracts, domain models, window ids, capabilities                                | `src/shared/` (repo root)             | `main`, `preload`, `renderer` |
+| Reusable UI components (Button, Modal, Table, Tooltip...)                                       | `src/renderer/src/shared/components/` | any feature/window            |
+| Generic UI hooks (`useDebounce`, `useOnClickOutside`, `useElectronEvent`)                       | `src/renderer/src/shared/hooks/`      | any feature/window            |
+| Formatters/utilities (`formatDuration`, `formatBytes`, sorters)                                 | `src/renderer/src/shared/lib/`        | any feature/window            |
+| Renderer-only types shared by 2+ features (view models, not IPC DTOs)                           | `src/renderer/src/shared/types/`      | any feature/window            |
+| Design tokens / global styles (existing `primitives.css`, `semantic.css`, `tailwind-theme.css`) | `src/renderer/src/shared/styles/`     | any feature/window            |
+| UI-only constants (labels, asset paths)                                                         | `src/renderer/src/shared/constants/`  | any feature/window            |
 
 Rule of thumb: **does this need to exist on the other side of the IPC bridge (main or
 preload)?** → `src/shared/` (root). **Is it purely a renderer/UI concern shared by more
@@ -502,6 +507,7 @@ has actually been promoted into them.
 ## 5. Checklists — adding new things
 
 **New IPC channel**
+
 1. Add the channel name to `src/shared/ipc/channels.ts`.
 2. Add/extend the contract (zod schema + types) in `src/shared/ipc/contracts/<domain>.contract.ts`.
 3. Implement the handler in `src/main/ipc/<domain>/<domain>.ipc.ts`, register it in `registerIpcHandlers.ts`.
@@ -509,6 +515,7 @@ has actually been promoted into them.
 5. Consume it from `src/renderer/src/features/<domain>/api/`.
 
 **New window**
+
 1. Add the id to `src/shared/constants/windowIds.ts`.
 2. Add the `.html` entry to `electron.vite.config.ts`.
 3. Create `src/main/windows/<name>/create<Name>Window.ts`, register it with `windowRegistry`.
@@ -516,24 +523,28 @@ has actually been promoted into them.
 5. If it needs to talk to other windows, do it via `windowRegistry.sendTo` + an event channel in `src/shared/ipc`.
 
 **New menu item**
+
 1. Add its id to `src/main/menu/menuIds.ts`.
 2. Add the descriptor to the relevant `sections/*.section.ts` (new feature → new `sections/<feature>.section.ts`).
 3. Add its handler to `src/main/menu/actions/registry.ts` (or a new `actions/<feature>.actions.ts`).
 4. Set `platforms` on the descriptor only if it shouldn't appear everywhere.
 
 **New platform-specific feature**
+
 1. Define the adapter contract in `src/main/services/<feature>/<feature>.types.ts`.
 2. Implement one file per supported platform (`.darwin.ts`, `.win32.ts`, `.linux.ts`) + `.unsupported.ts` fallback.
 3. `<feature>.service.ts` picks the adapter for `process.platform`.
 4. If the renderer must adapt its UI, add a flag to `src/shared/constants/capabilities.ts`.
 
 **New DB table**
+
 1. Add the table to `src/main/db/schema/<table>.schema.ts`, export it from `schema/index.ts`.
 2. Generate a migration with drizzle-kit, commit it under `src/main/db/migrations/`.
 3. Add a `src/main/db/repositories/<table>.repository.ts`.
 4. If the table's rows need to reach the renderer, add the DTO shape to `src/shared/models/`.
 
 **New background task**
+
 1. Add the task entry under `src/main/workers/<task>/`.
 2. Define progress/result message shapes in the relevant `src/shared/ipc/contracts/<domain>.contract.ts`.
 3. Forward progress from the worker to the renderer via an event channel.
