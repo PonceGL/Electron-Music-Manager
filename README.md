@@ -39,6 +39,10 @@ pnpm package:win
 
 Output is placed in the `dist/` directory.
 
+The NSIS installer (Windows) and DMG (macOS) branding decisions — icons, installer
+language, background — are documented in
+[`docs/installer-branding.md`](docs/installer-branding.md).
+
 ### Windows — Developer Mode required
 
 Building on Windows requires symlink creation privileges. Enable **Developer Mode** before running `pnpm package:win`:
