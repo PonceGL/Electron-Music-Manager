@@ -49,6 +49,7 @@
     },
     "dmg": {
       "backgroundColor": "#465d91",
+      "icon": null,
       "window": {
         "width": 540,
         "height": 380
