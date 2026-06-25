@@ -42,6 +42,14 @@ If real artwork (logo-bearing background, arrow graphic, etc.) is produced later
 `backgroundColor` for `dmg.background` pointing at a PNG/TIFF under `resources/` — the
 `window`/`contents` (icon positions) config EMM-31 adds does not need to change.
 
+**`dmg.icon` is explicitly `null`.** Leaving it unset makes `electron-builder` default it
+to the app icon and ask its bundled `dmgbuild` tool to create a hidden `.VolumeIcon.icns`
+at the volume root for the mounted disk's icon. That file's "hidden" flag isn't always
+applied reliably, which left a broken/unloaded icon visible inside the Finder window
+during EMM-32's end-to-end check. Setting it to `null` skips that step entirely — it does
+not affect the `Music Manager.app` icon shown inside the window, which comes from the app
+bundle itself.
+
 ## Windows (NSIS) — installer language
 
 EMM-30 forces a single Spanish-language installer: `nsis.language: "2058"` (Spanish —
